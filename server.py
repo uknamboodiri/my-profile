@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, request
-import csv
+import csv, pdb
 
 app = Flask(__name__)
 
@@ -23,7 +23,8 @@ def write_to_file(data):
 
 
 def write_to_csv(data):
-    with open('database.csv', 'a', newline=' ') as database2:
+    with open('database.csv', 'a', newline='') as database2:
+
         email = data["email"]
         subject = data["subject"]
         message = data["message"]
@@ -38,8 +39,8 @@ def submit_form():
         try:
             data = request.form.to_dict()
             write_to_csv(data)
-            return redirect('thankyou.html')
+            return redirect('/thankyou.html')
         except:
-            return 'could not same to database'
+            return 'err'
     else:
         return 'something went wrong'
